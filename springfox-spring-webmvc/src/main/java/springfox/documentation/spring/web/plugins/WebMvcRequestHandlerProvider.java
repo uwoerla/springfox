@@ -25,7 +25,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import springfox.documentation.RequestHandler;
 import springfox.documentation.spi.service.RequestHandlerProvider;
 import springfox.documentation.spring.web.WebMvcRequestHandler;
@@ -38,15 +38,15 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
-import static java.util.stream.Collectors.*;
-import static springfox.documentation.builders.BuilderDefaults.*;
-import static springfox.documentation.spi.service.contexts.Orderings.*;
-import static springfox.documentation.spring.web.paths.Paths.*;
+import static java.util.stream.Collectors.toList;
+import static springfox.documentation.builders.BuilderDefaults.nullToEmptyList;
+import static springfox.documentation.spi.service.contexts.Orderings.byPatternsCondition;
+import static springfox.documentation.spring.web.paths.Paths.ROOT;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class WebMvcRequestHandlerProvider implements RequestHandlerProvider {
-  private final List<RequestMappingInfoHandlerMapping> handlerMappings;
+  private final List<RequestMappingHandlerMapping> handlerMappings;
   private final HandlerMethodResolver methodResolver;
   private final String contextPath;
 
@@ -54,7 +54,7 @@ public class WebMvcRequestHandlerProvider implements RequestHandlerProvider {
   public WebMvcRequestHandlerProvider(
       Optional<ServletContext> servletContext,
       HandlerMethodResolver methodResolver,
-      List<RequestMappingInfoHandlerMapping> handlerMappings) {
+      List<RequestMappingHandlerMapping> handlerMappings) {
     this.handlerMappings = handlerMappings;
     this.methodResolver = methodResolver;
     this.contextPath = servletContext
@@ -76,7 +76,7 @@ public class WebMvcRequestHandlerProvider implements RequestHandlerProvider {
         .collect(toList());
   }
 
-  private Function<RequestMappingInfoHandlerMapping,
+  private Function<RequestMappingHandlerMapping,
       Iterable<Map.Entry<RequestMappingInfo, HandlerMethod>>> toMappingEntries() {
     return input -> input.getHandlerMethods()
         .entrySet();
