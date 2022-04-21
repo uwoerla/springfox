@@ -1,5 +1,8 @@
-# Branch 2.10.5
-> [see branch 2.10.5](https://github.com/uwoerla/springfox/tree/2.10.5)
+# Branch v2.11.0
+> 基于官方的 2.10.5 版本集成了 spring-framework 5.3.18 
+> 解决 swagger (springfox) 在高版本的 springboot(依赖了高版本的 spring-framework)上集成失败的问题
+> [see branch v2.11.0](https://github.com/uwoerla/springfox/tree/v2.11.0)
+> [see branch v2.10.5](https://github.com/uwoerla/springfox/tree/v2.10.5)
 
 # Springfox
 
