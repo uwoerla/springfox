@@ -1,3 +1,6 @@
+# Branch 2.10.5
+> [see branch 2.10.5](https://github.com/uwoerla/springfox/tree/2.10.5)
+
 # Springfox
 
 [![Join the chat at https://gitter.im/springfox/springfox](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/springfox/springfox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
