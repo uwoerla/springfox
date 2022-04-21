@@ -3,6 +3,8 @@
 >
 > 解决 swagger (springfox) 在高版本的 springboot(依赖了高版本的 spring-framework)上集成失败的问题
 >
+> 这个 feature 分支仅仅扫描有 `@Controller` 和 `@RequestMapping` 注解的类来生成 swagger 文档
+>
 > [see branch v2.11.0](https://github.com/uwoerla/springfox/tree/v2.11.0)
 >
 > [see branch v2.10.5](https://github.com/uwoerla/springfox/tree/v2.10.5)
