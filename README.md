@@ -1,5 +1,5 @@
-# Branch 2.10.5
-> [see branch 2.10.5](https://github.com/uwoerla/springfox/tree/2.10.5)
+# Branch v2.10.5
+> [see branch v2.10.5](https://github.com/uwoerla/springfox/tree/v2.10.5)
 
 # Springfox
 
