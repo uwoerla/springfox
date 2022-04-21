@@ -63,11 +63,13 @@ vim /springfox/.version
 ```
 
 ## Install Snapshot To Maven
+> about `-P` see dir `buildSrc`
 ```
 # Local
 gradle publishToMavenLocal -PbuildNumberFormat=-SNAPSHOT
 ```
 ## Install Release To Maven Local
+> about `-P` see dir `buildSrc`
 ```
 # Local
 gradle publishToMavenLocal -PbuildNumberFormat=
