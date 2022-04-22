@@ -35,6 +35,7 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MockRequestHandler implements RequestHandler {
   private final RequestMappingInfo requestMapping;
@@ -69,6 +70,16 @@ public class MockRequestHandler implements RequestHandler {
   @Override
   public PatternsRequestCondition getPatternsCondition() {
     return new PatternsRequestConditionWrapper(requestMapping.getPatternsCondition());
+  }
+
+  @Override
+  public Set<String> getPatternStrings() {
+    org.springframework.web.servlet.mvc.condition.PatternsRequestCondition condition = requestMapping.getPatternsCondition();
+    if(condition!=null){
+      return condition.getPatterns();
+    }else {
+      return requestMapping.getPathPatternsCondition().getPatterns().stream().map(x->x.getPatternString()).collect(Collectors.toSet());
+    }
   }
 
   @Override

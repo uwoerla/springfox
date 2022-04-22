@@ -29,6 +29,7 @@ import springfox.documentation.RequestHandlerKey;
 import springfox.documentation.service.ResolvedMethodParameter;
 import springfox.documentation.spring.web.readers.operation.HandlerMethodResolver;
 import springfox.documentation.spring.wrapper.NameValueExpression;
+import springfox.documentation.spring.wrapper.PathPatternsRequestCondition;
 import springfox.documentation.spring.wrapper.PatternsRequestCondition;
 
 import java.lang.annotation.Annotation;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 import static java.util.Optional.*;
 
@@ -78,9 +80,26 @@ public class WebMvcRequestHandler implements RequestHandler {
 
   @Override
   public PatternsRequestCondition getPatternsCondition() {
-    return new WebMvcPatternsRequestConditionWrapper(
+    return requestMapping.getPatternsCondition() == null?null:new WebMvcPatternsRequestConditionWrapper(
         contextPath,
         requestMapping.getPatternsCondition());
+  }
+
+  @Override
+  public PathPatternsRequestCondition getPathPatternsRequestCondition(){
+    return requestMapping.getPathPatternsCondition()==null?null:new WebMvcPathPatternsRequestConditionWrapper(
+            contextPath,
+            requestMapping.getPathPatternsCondition());
+  }
+
+  @Override
+  public Set<String> getPatternStrings() {
+    org.springframework.web.servlet.mvc.condition.PatternsRequestCondition condition = requestMapping.getPatternsCondition();
+    if(condition!=null){
+      return condition.getPatterns();
+    }else {
+      return requestMapping.getPathPatternsCondition().getPatterns().stream().map(x->x.getPatternString()).collect(Collectors.toSet());
+    }
   }
 
   @Override
@@ -125,11 +144,13 @@ public class WebMvcRequestHandler implements RequestHandler {
 
   @Override
   public RequestHandlerKey key() {
+
     return new RequestHandlerKey(
-        requestMapping.getPatternsCondition().getPatterns(),
-        requestMapping.getMethodsCondition().getMethods(),
-        requestMapping.getConsumesCondition().getConsumableMediaTypes(),
-        requestMapping.getProducesCondition().getProducibleMediaTypes());
+            getPatternStrings(),
+            requestMapping.getMethodsCondition().getMethods(),
+            requestMapping.getConsumesCondition().getConsumableMediaTypes(),
+            requestMapping.getProducesCondition().getProducibleMediaTypes()
+    );
   }
 
   @Override

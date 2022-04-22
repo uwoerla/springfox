@@ -28,6 +28,7 @@ import springfox.documentation.annotations.Incubating;
 import springfox.documentation.service.ResolvedMethodParameter;
 
 import springfox.documentation.spring.wrapper.NameValueExpression;
+import springfox.documentation.spring.wrapper.PathPatternsRequestCondition;
 import springfox.documentation.spring.wrapper.PatternsRequestCondition;
 import springfox.documentation.spring.wrapper.RequestMappingInfo;
 
@@ -52,6 +53,12 @@ public interface RequestHandler extends Comparable<RequestHandler> {
   boolean isAnnotatedWith(Class<? extends Annotation> annotation);
 
   PatternsRequestCondition getPatternsCondition();
+
+  default PathPatternsRequestCondition getPathPatternsRequestCondition(){
+    return null;
+  }
+
+  Set<String> getPatternStrings();
 
   String groupName();
 

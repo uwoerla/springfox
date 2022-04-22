@@ -33,14 +33,7 @@ import springfox.documentation.spring.wrapper.PatternsRequestCondition;
 import springfox.documentation.spring.wrapper.RequestMappingInfo;
 
 import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.StringJoiner;
-
+import java.util.*;
 import static java.util.Optional.*;
 import static java.util.stream.Collectors.*;
 
@@ -74,6 +67,13 @@ class SpringDataRestRequestHandler implements RequestHandler {
         contextPath,
         new org.springframework.web.servlet.mvc.condition.PatternsRequestCondition(actionSpecification.getPath())
     );
+  }
+
+  @Override
+  public Set<String> getPatternStrings(){
+    Set<String> result = new LinkedHashSet<>(1);
+    result.add(actionSpecification.getPath());
+    return result;
   }
 
   @Override
@@ -124,7 +124,7 @@ class SpringDataRestRequestHandler implements RequestHandler {
   @Override
   public RequestHandlerKey key() {
     return new RequestHandlerKey(
-        getPatternsCondition().getPatterns(),
+        getPatternStrings(),
         supportedMethods(),
         consumes(),
         produces());

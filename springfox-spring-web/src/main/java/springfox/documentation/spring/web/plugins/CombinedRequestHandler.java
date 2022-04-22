@@ -26,6 +26,7 @@ import springfox.documentation.RequestHandler;
 import springfox.documentation.RequestHandlerKey;
 import springfox.documentation.service.ResolvedMethodParameter;
 import springfox.documentation.spring.wrapper.NameValueExpression;
+import springfox.documentation.spring.wrapper.PathPatternsRequestCondition;
 import springfox.documentation.spring.wrapper.PatternsRequestCondition;
 import springfox.documentation.spring.wrapper.RequestMappingInfo;
 
@@ -63,6 +64,17 @@ public class CombinedRequestHandler implements RequestHandler {
   @Override
   public PatternsRequestCondition getPatternsCondition() {
     return first.getPatternsCondition().combine(second.getPatternsCondition());
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public PathPatternsRequestCondition getPathPatternsRequestCondition() {
+    return first.getPathPatternsRequestCondition().combine(second.getPathPatternsRequestCondition());
+  }
+
+  @Override
+  public Set<String> getPatternStrings() {
+    return first.getPatternStrings();
   }
 
   @Override
@@ -123,7 +135,7 @@ public class CombinedRequestHandler implements RequestHandler {
   @Override
   public RequestHandlerKey key() {
     return new RequestHandlerKey(
-        getPatternsCondition().getPatterns(),
+        getPatternStrings(),
         supportedMethods(),
         consumes(),
         produces());

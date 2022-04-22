@@ -107,6 +107,11 @@ class OrderingsSpec extends Specification {
           }
 
           @Override
+          Set<String> getPatternStings() {
+             return null
+          }
+
+          @Override
           String groupName() {
             return ControllerNamingUtils.controllerNameAsGroup(handlerMethod);
           }

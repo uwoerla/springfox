@@ -179,6 +179,11 @@ class OperationCachingEquivalenceSpec extends Specification implements HandlerMe
       }
 
       @Override
+      Set<String> getPatternStings() {
+        return null
+      }
+
+      @Override
       String groupName() {
         return null
       }

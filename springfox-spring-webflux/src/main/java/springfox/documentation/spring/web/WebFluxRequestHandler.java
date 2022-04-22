@@ -79,6 +79,13 @@ public class WebFluxRequestHandler implements RequestHandler {
   }
 
   @Override
+  public Set<String> getPatternStrings(){
+    return requestMapping.getPatternsCondition().getPatterns().stream()
+            .map(PathPattern::getPatternString)
+            .collect(Collectors.toSet());
+  }
+
+  @Override
   public String groupName() {
     return ControllerNamingUtils.controllerNameAsGroup(handlerMethod);
   }
@@ -120,10 +127,7 @@ public class WebFluxRequestHandler implements RequestHandler {
 
   @Override
   public RequestHandlerKey key() {
-    return new RequestHandlerKey(
-        requestMapping.getPatternsCondition().getPatterns().stream()
-            .map(PathPattern::getPatternString)
-            .collect(Collectors.toSet()),
+    return new RequestHandlerKey(getPatternStrings(),
         requestMapping.getMethodsCondition().getMethods(),
         requestMapping.getConsumesCondition().getConsumableMediaTypes(),
         requestMapping.getProducesCondition().getProducibleMediaTypes());
