@@ -110,9 +110,9 @@ public interface RequestHandler extends Comparable<RequestHandler> {
 
   @Override
   default int compareTo(RequestHandler other) {
-    return byPatternsCondition()
-        .thenComparing(byOperationName())
-        .compare(this, other);
+    return byPatternStrings()
+            .thenComparing(byOperationName())
+            .compare(this, other);
   }
 
   static String sortedPaths(PatternsRequestCondition patternsCondition) {
@@ -120,6 +120,18 @@ public interface RequestHandler extends Comparable<RequestHandler> {
     return paths.stream()
         .filter(Objects::nonNull)
         .collect(Collectors.joining(","));
+  }
+
+
+  static String sortedPaths(Set<String> patterns) {
+    TreeSet<String> paths = new TreeSet<>(patterns);
+    return paths.stream()
+            .filter(Objects::nonNull)
+            .collect(Collectors.joining(","));
+  }
+
+  static Comparator<RequestHandler> byPatternStrings() {
+    return Comparator.comparing(requestHandler -> sortedPaths(requestHandler.getPatternStrings()));
   }
 
   static Comparator<RequestHandler> byPatternsCondition() {

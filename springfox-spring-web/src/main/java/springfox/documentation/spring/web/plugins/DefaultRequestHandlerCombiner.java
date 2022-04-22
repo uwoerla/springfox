@@ -37,7 +37,7 @@ import static java.util.stream.Collectors.*;
 import static springfox.documentation.RequestHandler.*;
 import static springfox.documentation.builders.BuilderDefaults.*;
 import static springfox.documentation.spi.service.contexts.Orderings.byOperationName;
-import static springfox.documentation.spi.service.contexts.Orderings.byPatternsCondition;
+import static springfox.documentation.spi.service.contexts.Orderings.byPatternStrings;
 
 class DefaultRequestHandlerCombiner implements RequestHandlerCombiner {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRequestHandlerCombiner.class);
@@ -48,7 +48,7 @@ class DefaultRequestHandlerCombiner implements RequestHandlerCombiner {
     Map<String, List<RequestHandler>> byPath = new HashMap<>();
     LOGGER.debug("Total number of request handlers {}", nullToEmptyList(source).size());
     for (RequestHandler each : nullToEmptyList(source)) {
-      String pathKey = sortedPaths(each.getPatternsCondition());
+      String pathKey = sortedPaths(each.getPatternStrings());
       LOGGER.debug("Adding key: {}, {}", pathKey, each.toString());
       byPath.putIfAbsent(pathKey, new ArrayList<>());
       byPath.get(pathKey).add(each);
@@ -58,7 +58,7 @@ class DefaultRequestHandlerCombiner implements RequestHandlerCombiner {
     }
     LOGGER.debug("Combined number of request handlers {}", combined.size());
     return combined.stream()
-        .sorted(byPatternsCondition())
+        .sorted(byPatternStrings())
         .collect(toList());
   }
 
@@ -89,7 +89,7 @@ class DefaultRequestHandlerCombiner implements RequestHandlerCombiner {
   }
 
   private Comparator<PathAndParametersEquivalence.Wrapper> wrapperComparator() {
-    return (first, second) -> byPatternsCondition()
+    return (first, second) -> byPatternStrings()
         .thenComparing(byOperationName())
         .compare(first.get(), second.get());
   }
@@ -121,7 +121,7 @@ class DefaultRequestHandlerCombiner implements RequestHandlerCombiner {
 
 
   private RequestHandler combine(RequestHandler first, RequestHandler second) {
-    if (first.compareTo(second) < 0) {
+    if (first.compareTo(second) < 0) { // 比较
       return new CombinedRequestHandler(first, second);
     }
     return new CombinedRequestHandler(second, first);

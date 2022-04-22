@@ -89,6 +89,11 @@ public class Orderings {
         .comparing(requestHandler -> sortedPaths(requestHandler.getPatternsCondition()));
   }
 
+  public static Comparator<RequestHandler> byPatternStrings() {
+    return Comparator
+            .comparing(requestHandler -> sortedPaths(requestHandler.getPatternStrings()));
+  }
+
   public static Comparator<RequestHandler> byOperationName() {
     return Comparator.comparing(RequestHandler::getName);
   }

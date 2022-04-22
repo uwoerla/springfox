@@ -72,7 +72,7 @@ public class WebMvcRequestHandlerProvider implements RequestHandlerProvider {
         .map(toMappingEntries())
         .flatMap((entries -> StreamSupport.stream(entries.spliterator(), false)))
         .map(toRequestHandler())
-        .sorted(byPatternsCondition())
+        .sorted(byPatternStrings()) // 排序
         .collect(toList());
   }
 

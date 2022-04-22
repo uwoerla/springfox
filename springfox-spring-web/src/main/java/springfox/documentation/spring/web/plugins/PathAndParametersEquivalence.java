@@ -34,7 +34,9 @@ class PathAndParametersEquivalence implements BiPredicate<RequestHandler, Reques
       = new ResolvedMethodParameterEquivalence();
 
   public boolean test(RequestHandler a, RequestHandler b) {
-    return a.getPatternsCondition().equals(b.getPatternsCondition())
+    boolean conditionMatch = a.getPatternsCondition()!=null? a.getPatternsCondition().equals(b.getPatternsCondition())
+            : a.getPathPatternsRequestCondition().equals(b.getPathPatternsRequestCondition());
+    return conditionMatch
         && a.supportedMethods().stream().anyMatch(item -> b.supportedMethods().contains(item))
         && a.params().equals(b.params())
         && Objects.equals(wrapped(a.getParameters()), wrapped(b.getParameters()));
@@ -48,7 +50,7 @@ class PathAndParametersEquivalence implements BiPredicate<RequestHandler, Reques
 
   public int doHash(RequestHandler requestHandler) {
     return Objects.hash(
-        requestHandler.getPatternsCondition().getPatterns(),
+        requestHandler.getPatternStrings(),
         requestHandler.supportedMethods(),
         requestHandler.params(),
         wrapped(requestHandler.getParameters()));
