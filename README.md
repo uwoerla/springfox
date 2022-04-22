@@ -1,11 +1,16 @@
-# Branch v2.11.0
+# Branch v2.12.0
 > 基于官方的 2.10.5 版本集成了 spring-framework 5.3.18 
 >
 > 解决 swagger (springfox) 在高版本的 springboot(依赖了高版本的 spring-framework)上集成失败的问题
 >
-> [see branch v2.11.0](https://github.com/uwoerla/springfox/tree/v2.11.0)
+> 这个 feature 分支不仅可以扫描有 `@Controller` 和 `@RequestMapping` 注解的类，还可以扫描有 `@Endpoint`等注解的类，以生成 swagger 文档
 >
-> [see branch v2.10.5](https://github.com/uwoerla/springfox/tree/v2.10.5)
+> see [branch v2.12.0](https://github.com/uwoerla/springfox/tree/v2.12.0) base on [branch v2.10.5](https://github.com/uwoerla/springfox/tree/v2.10.5)
+
+
+> 如果你只需要在 swagger 文档中仅包含有 `@Controller` 和 `@RequestMapping` 注解的类，你可以选择使用 [branch v2.11.0](https://github.com/uwoerla/springfox/tree/v2.11.0) 
+>
+> 如果你没有特殊地需求，我的建议是请你使用 [branch v2.11.0](https://github.com/uwoerla/springfox/tree/v2.11.0) ，这个 feature 对源代码的改动最小。
 
 # Springfox
 
@@ -63,11 +68,13 @@ vim /springfox/.version
 ```
 
 ## Install Snapshot To Maven
+> about `-P` see dir `buildSrc`
 ```
 # Local
 gradle publishToMavenLocal -PbuildNumberFormat=-SNAPSHOT
 ```
 ## Install Release To Maven Local
+> about `-P` see dir `buildSrc`
 ```
 # Local
 gradle publishToMavenLocal -PbuildNumberFormat=
