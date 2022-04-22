@@ -7,6 +7,16 @@
 >
 > see [branch v2.11.0](https://github.com/uwoerla/springfox/tree/v2.11.0) base on [branch v2.10.5](https://github.com/uwoerla/springfox/tree/v2.10.5)
 
+# Use Demo
+使用 ANT_PATH_MATCHER 作为 spring mvc path match 的策略
+```
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+```
+> see more [demo](https://github.com/uwoerla/app-with-swagger-docs-demo/tree/springboot-2.6.6-springfox-2.11.0)
+
 # Springfox
 
 [![Join the chat at https://gitter.im/springfox/springfox](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/springfox/springfox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
