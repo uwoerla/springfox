@@ -12,6 +12,9 @@
 >
 > 如果你没有特殊地需求，我的建议是请你使用 [branch v2.11.0](https://github.com/uwoerla/springfox/tree/v2.11.0) ，这个 feature 对源代码的改动最小。
 
+# Use Demo
+> see more [demo](https://github.com/uwoerla/app-with-swagger-docs-demo/tree/springboot-2.6.6-springfox-2.12.0)
+
 # Springfox
 
 [![Join the chat at https://gitter.im/springfox/springfox](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/springfox/springfox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
