@@ -156,8 +156,8 @@ public class RequestMappingContext {
             Collections::unmodifiableSet));
   }
 
-  public PatternsRequestCondition getPatternsCondition() {
-    return handler.getPatternsCondition();
+  public Set<String> getPatternStrings() {
+    return handler.getPatternStrings();
   }
 
   public String getName() {

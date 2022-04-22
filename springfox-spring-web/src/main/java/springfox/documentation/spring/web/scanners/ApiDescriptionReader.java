@@ -59,11 +59,10 @@ public class ApiDescriptionReader {
   }
 
   public List<ApiDescription> read(RequestMappingContext outerContext) {
-    PatternsRequestCondition patternsCondition = outerContext.getPatternsCondition();
     ApiSelector selector = outerContext.getDocumentationContext().getApiSelector();
 
     List<ApiDescription> apiDescriptionList = new ArrayList<>();
-    for (String path : matchingPaths(selector, patternsCondition)) {
+    for (String path : matchingPaths(selector, outerContext.getPatternStrings())) {
       String methodName = outerContext.getName();
       try {
         RequestMappingContext operationContext = outerContext.copyPatternUsing(path)
@@ -90,8 +89,8 @@ public class ApiDescriptionReader {
     return apiDescriptionList;
   }
 
-  private List<String> matchingPaths(ApiSelector selector, PatternsRequestCondition patternsCondition) {
-    return ((Set<String>) patternsCondition.getPatterns()).stream()
+  private List<String> matchingPaths(ApiSelector selector, Set<String> patterns) {
+    return patterns.stream()
         .filter(selector.getPathSelector())
         .sorted(naturalOrder())
         .collect(toList());

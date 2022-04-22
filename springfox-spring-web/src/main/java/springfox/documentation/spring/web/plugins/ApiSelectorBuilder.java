@@ -57,7 +57,7 @@ public class ApiSelectorBuilder {
     return new Predicate<RequestHandler>() {
       @Override
       public boolean test(RequestHandler input) {
-        return input.getPatternsCondition().getPatterns().stream().anyMatch(pathSelector);
+        return input.getPatternStrings().stream().anyMatch(pathSelector);
       }
     };
   }

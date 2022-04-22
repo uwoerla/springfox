@@ -42,7 +42,7 @@ public class ApiListingReferenceScanner {
 
   public ApiListingReferenceScanResult scan(DocumentationContext context) {
     LOG.info("Scanning for api listing references");
-
+    // 对接口进行归档
     Map<ResourceGroup, List<RequestMappingContext>> resourceGroupRequestMappings
         = new HashMap<>();
 
@@ -53,7 +53,7 @@ public class ApiListingReferenceScanner {
         .filter(selector.getRequestHandlerSelector()).collect(toList());
     for (RequestHandler handler : matchingHandlers) {
       ResourceGroup resourceGroup = new ResourceGroup(
-          handler.groupName(),
+          handler.groupName(), // 分组的组名
           handler.declaringClass(),
           0);
 
