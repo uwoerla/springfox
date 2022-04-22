@@ -107,7 +107,7 @@ class OrderingsSpec extends Specification {
           }
 
           @Override
-          Set<String> getPatternStings() {
+          Set<String> getPatternStrings() {
              return null
           }
 
