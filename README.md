@@ -1,4 +1,6 @@
 # At First
+> why? [see issues](https://github.com/spring-projects/spring-boot/issues/24645)
+>
 > 基于官方的 2.10.5 版本集成了 spring-framework 5.3.18 
 >
 > 解决 swagger (springfox) 在高版本的 springboot(依赖了高版本的 spring-framework)上集成失败的问题
