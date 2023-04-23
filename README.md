@@ -17,6 +17,30 @@ spring:
 ```
 > see more [demo](https://github.com/uwoerla/app-with-swagger-docs-demo/tree/springboot-2.6.6-springfox-2.11.0)
 
+## Update Version Number
+```
+vim /springfox/.version
+```
+
+## Install Snapshot To Maven
+> about `-P` see dir `buildSrc`
+```
+# Local
+./gradlew clean publishToMavenLocal -PbuildNumberFormat=-SNAPSHOT
+
+# Nexus
+./gradlew clean publish -PbuildNumberFormat=-SNAPSHOT
+```
+## Install Release To Maven
+> about `-P` see dir `buildSrc`
+```
+# Local
+./gradlew clean publishToMavenLocal -PbuildNumberFormat=
+
+# Nexus
+./gradlew clean publish -PbuildNumberFormat=
+```
+
 # Springfox
 
 [![Join the chat at https://gitter.im/springfox/springfox](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/springfox/springfox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -65,22 +89,3 @@ limitations under the License.
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fspringfox%2Fspringfox.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fspringfox%2Fspringfox?ref=badge_large)
-
-
-## Update Version Number
-```
-vim /springfox/.version
-```
-
-## Install Snapshot To Maven
-> about `-P` see dir `buildSrc`
-```
-# Local
-gradle publishToMavenLocal -PbuildNumberFormat=-SNAPSHOT
-```
-## Install Release To Maven Local
-> about `-P` see dir `buildSrc`
-```
-# Local
-gradle publishToMavenLocal -PbuildNumberFormat=
-```
